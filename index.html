@@ -1354,39 +1354,98 @@
             gap: 12px;
         }
 
+        /* Colorful glass cards — Technology stack */
         .stack-item {
+            --glass-rgb: 90, 225, 190;
+            --glass-glow: rgba(90, 225, 190, .22);
+
             min-height: 115px;
+            position: relative;
+            isolation: isolate;
+            overflow: hidden;
 
-            border: 1px solid var(--border);
-
-            border-radius: 13px;
+            border: 1px solid rgba(var(--glass-rgb), .34);
+            border-radius: 19px;
 
             display: flex;
-
             flex-direction: column;
-
             justify-content: center;
-
             align-items: center;
-
             gap: 10px;
 
             background:
-                rgba(190,80,255,.025);
+                radial-gradient(ellipse at 18% 0%, rgba(var(--glass-rgb), .25), transparent 58%),
+                linear-gradient(135deg, rgba(var(--glass-rgb), .17), rgba(var(--glass-rgb), .055) 55%, rgba(255,255,255,.025));
 
-            transition: .3s;
+            -webkit-backdrop-filter: blur(19px) saturate(155%);
+            backdrop-filter: blur(19px) saturate(155%);
+
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.23),
+                inset 0 -1px 0 rgba(var(--glass-rgb), .10),
+                0 9px 28px rgba(0,0,0,.18),
+                0 0 24px var(--glass-glow);
+
+            transition:
+                transform .35s ease,
+                border-color .35s ease,
+                background .35s ease,
+                box-shadow .35s ease;
         }
+
+        .stack-item::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: -1;
+            pointer-events: none;
+            border-radius: inherit;
+            background:
+                linear-gradient(125deg,
+                    rgba(255,255,255,.20) 0%,
+                    rgba(255,255,255,.055) 22%,
+                    transparent 48%,
+                    rgba(var(--glass-rgb), .07) 100%);
+            opacity: .9;
+        }
+
+        .stack-item::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 12%;
+            right: 12%;
+            height: 1px;
+            pointer-events: none;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+            opacity: .65;
+        }
+
+        .stack-item:nth-child(1)  { --glass-rgb: 75, 220, 180; --glass-glow: rgba(75,220,180,.20); }
+        .stack-item:nth-child(2)  { --glass-rgb: 145, 105, 255; --glass-glow: rgba(120,90,255,.22); }
+        .stack-item:nth-child(3)  { --glass-rgb: 45, 150, 255; --glass-glow: rgba(45,150,255,.23); }
+        .stack-item:nth-child(4)  { --glass-rgb: 255, 105, 65; --glass-glow: rgba(255,105,65,.20); }
+        .stack-item:nth-child(5)  { --glass-rgb: 65, 205, 150; --glass-glow: rgba(65,205,150,.19); }
+        .stack-item:nth-child(6)  { --glass-rgb: 175, 90, 255; --glass-glow: rgba(175,90,255,.23); }
+        .stack-item:nth-child(7)  { --glass-rgb: 255, 165, 45; --glass-glow: rgba(255,165,45,.20); }
+        .stack-item:nth-child(8)  { --glass-rgb: 45, 155, 255; --glass-glow: rgba(45,155,255,.22); }
+        .stack-item:nth-child(9)  { --glass-rgb: 255, 105, 65; --glass-glow: rgba(255,105,65,.19); }
+        .stack-item:nth-child(10) { --glass-rgb: 145, 105, 255; --glass-glow: rgba(145,105,255,.22); }
 
         .stack-item:hover {
             transform: translateY(-5px);
-
-            border-color:
-                rgba(190,80,255,.3);
-
-            color: var(--green);
+            border-color: rgba(var(--glass-rgb), .72);
+            color: #fff;
 
             background:
-                rgba(190,80,255,.035);
+                radial-gradient(ellipse at 18% 0%, rgba(var(--glass-rgb), .34), transparent 60%),
+                linear-gradient(135deg, rgba(var(--glass-rgb), .24), rgba(var(--glass-rgb), .09) 58%, rgba(255,255,255,.045));
+
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,.34),
+                inset 0 0 24px rgba(var(--glass-rgb), .08),
+                0 14px 36px rgba(0,0,0,.25),
+                0 0 34px var(--glass-glow);
         }
 
         .stack-symbol {
@@ -1485,6 +1544,83 @@
                     transparent 35%
                 ),
                 rgba(190,80,255,.025);
+        }
+
+        .contact-notice-card {
+            max-width: 920px;
+            margin-inline: auto;
+        }
+
+        .contact-email-panel {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            padding: 24px;
+            margin-top: 30px;
+            border: 1px solid rgba(190,80,255,.22);
+            border-radius: 16px;
+            background: linear-gradient(120deg, rgba(190,80,255,.10), rgba(190,80,255,.025));
+        }
+
+        .contact-email-icon {
+            width: 54px;
+            height: 54px;
+            flex: 0 0 54px;
+            display: grid;
+            place-items: center;
+            border: 1px solid rgba(190,80,255,.28);
+            border-radius: 15px;
+            color: #d7a1ff;
+            background: rgba(190,80,255,.10);
+            font-size: 25px;
+        }
+
+        .contact-email-copy {
+            display: flex;
+            flex: 1 1 220px;
+            flex-direction: column;
+            gap: 7px;
+            min-width: 0;
+        }
+
+        .contact-email-label {
+            color: var(--muted);
+            font: 10px var(--mono);
+            letter-spacing: 1.5px;
+        }
+
+        .contact-email-address {
+            color: var(--text);
+            font-size: clamp(17px, 2.5vw, 22px);
+            font-weight: 700;
+            text-decoration: none;
+            overflow-wrap: anywhere;
+            transition: color .2s ease;
+        }
+
+        .contact-email-address:hover { color: #d7a1ff; }
+
+        .contact-email-button {
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .contact-notice-foot {
+            margin-top: 22px;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        body.rtl .contact-email-label {
+            font-family: var(--persian);
+            letter-spacing: 0;
+        }
+
+        @media (max-width: 600px) {
+            .contact-email-panel { padding: 19px; gap: 14px; }
+            .contact-email-button { width: 100%; text-align: center; justify-content: center; }
         }
 
         .form-header {
@@ -2123,7 +2259,7 @@ body.rtl .mf-hero h1{letter-spacing:-2px;line-height:1.12}
         radial-gradient(circle at 50% 40%,rgba(255,255,255,.1),transparent 45%),
         linear-gradient(145deg,rgba(190,80,255,.075),rgba(190,80,255,.018));
     border:1px solid rgba(255,255,255,.12);
-    box-shadow:0 40px 100px rgba(0,0,0,.5),0 0 80px rgba(255,193,7,.08);
+    box-shadow:0 40px 100px rgba(0,0,0,.5),0 0 80px rgba(194,91,255,.14);
     backdrop-filter:blur(16px);
     transform:rotate(2deg);
 }
@@ -4151,6 +4287,117 @@ body.rtl .pj-skills{direction:ltr;justify-content:flex-end}
     user-select: none;
 }
 .mf-download.soon .mf-dl-link:focus { outline: none; }
+
+/* NeoBite refinement: remove custom pointer and apply true frosted glass to technology cards */
+.cursor,
+.cursor-ring {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* Reference-matched frosted glass cards: dark translucent center + vivid colored rim */
+#stack .stack-item {
+    --rim: 90, 220, 190;
+    --rim-glow: rgba(90, 220, 190, .28);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid rgba(var(--rim), .62) !important;
+    border-radius: 18px !important;
+
+    /* The center stays dark and frosted; color lives mainly at the perimeter. */
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(var(--rim), .15), transparent 72%),
+        linear-gradient(145deg, rgba(var(--rim), .105), rgba(19, 25, 42, .53) 48%, rgba(var(--rim), .075)) !important;
+
+    -webkit-backdrop-filter: blur(26px) saturate(145%);
+    backdrop-filter: blur(26px) saturate(145%);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, .20),
+        inset 0 0 18px rgba(var(--rim), .075),
+        0 0 0 1px rgba(var(--rim), .12),
+        0 0 17px var(--rim-glow),
+        0 12px 30px rgba(0, 0, 0, .25);
+
+    transition:
+        transform .35s ease,
+        border-color .35s ease,
+        background .35s ease,
+        box-shadow .35s ease;
+}
+
+/* A fine bright glass edge and a soft reflection across the upper surface. */
+#stack .stack-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+    background:
+        linear-gradient(135deg,
+            rgba(255,255,255,.17) 0%,
+            rgba(255,255,255,.045) 18%,
+            transparent 43%,
+            transparent 72%,
+            rgba(var(--rim), .10) 100%),
+        radial-gradient(ellipse at 50% -12%,
+            rgba(var(--rim), .20), transparent 66%);
+    opacity: .9;
+}
+
+/* Thin inner highlight makes the colored rim read like illuminated glass. */
+#stack .stack-item::after {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 17px;
+    border: 1px solid rgba(var(--rim), .16);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.13);
+}
+
+/* Individual glass tints, following the actual card order in this page. */
+#stack .stack-item:nth-child(1)  { --rim: 55, 220, 185; --rim-glow: rgba(55,220,185,.32); }   /* turquoise */
+#stack .stack-item:nth-child(2)  { --rim: 255, 105, 65; --rim-glow: rgba(255,105,65,.32); }   /* coral */
+#stack .stack-item:nth-child(3)  { --rim: 45, 145, 255; --rim-glow: rgba(45,145,255,.34); }   /* electric blue */
+#stack .stack-item:nth-child(4)  { --rim: 255, 75, 145; --rim-glow: rgba(255,75,145,.31); }  /* pink */
+#stack .stack-item:nth-child(5)  { --rim: 125, 225, 75; --rim-glow: rgba(125,225,75,.30); }  /* lime */
+#stack .stack-item:nth-child(6)  { --rim: 155, 105, 255; --rim-glow: rgba(155,105,255,.33); } /* violet */
+#stack .stack-item:nth-child(7)  { --rim: 255, 185, 55; --rim-glow: rgba(255,185,55,.32); }  /* amber */
+#stack .stack-item:nth-child(8)  { --rim: 45, 220, 235; --rim-glow: rgba(45,220,235,.32); }  /* cyan */
+#stack .stack-item:nth-child(9)  { --rim: 255, 85, 90; --rim-glow: rgba(255,85,90,.31); }    /* red */
+#stack .stack-item:nth-child(10) { --rim: 185, 145, 255; --rim-glow: rgba(185,145,255,.32); }/* lavender */
+
+#stack .stack-item:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(var(--rim), .88) !important;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(var(--rim), .22), transparent 72%),
+        linear-gradient(145deg, rgba(var(--rim), .15), rgba(19, 25, 42, .58) 48%, rgba(var(--rim), .11)) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.25),
+        inset 0 0 22px rgba(var(--rim),.10),
+        0 0 0 1px rgba(var(--rim),.18),
+        0 0 25px var(--rim-glow),
+        0 17px 38px rgba(0,0,0,.30);
+}
+
+#stack .stack-logo,
+#stack .stack-name,
+#stack .stack-symbol {
+    position: relative;
+    z-index: 1;
+}
+
+#stack .stack-name {
+    color: rgba(239, 243, 255, .88) !important;
+}
+
 </style>
 
 </head>
@@ -4162,11 +4409,6 @@ body.rtl .pj-skills{direction:ltr;justify-content:flex-end}
 <!-- =========================================================
      CUSTOM CURSOR
 ========================================================= -->
-
-<div class="cursor"></div>
-<div class="cursor-ring"></div>
-
-
 <!-- =========================================================
      NAVIGATION
 ========================================================= -->
@@ -4528,7 +4770,7 @@ body.rtl .pj-skills{direction:ltr;justify-content:flex-end}
 
         <div class="pj-wrap reveal" id="pjWrap">
             <div class="pj-track" id="pjTrack">
-            <article class="pj" data-category="software" data-project="mathfriend" tabindex="0" role="link" style="--a:#ffc94d;--b:#ff7a3d;--i:0">
+            <article class="pj" data-category="software" data-project="mathfriend" tabindex="0" role="link" style="--a:#b65cff;--b:#ff3df2;--i:0">
                 <div class="pj-cover">
                     <span class="pj-orb"></span>
                     <svg class="pj-glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 5H6l6.5 7L6 19h12"/></svg>
@@ -5399,258 +5641,35 @@ body.rtl .pj-skills{direction:ltr;justify-content:flex-end}
 
     <div class="container">
 
-        <div class="request-box reveal">
+        <div class="request-box reveal contact-notice-card">
 
             <div class="form-header">
 
-                <div
-                    class="section-number"
-                    data-i18n="requestNumber"
-                >
-                    06 / START A PROJECT
+                <div class="section-number" data-i18n="requestNumber">
+                    06 / CONTACT
                 </div>
 
                 <h2 data-i18n="requestTitle">
-                    Tell us about the product you envision.
+                    Let’s build something meaningful together.
                 </h2>
 
                 <p data-i18n="requestDescription">
-                    Share the scope, objectives and requirements of your website, software or AI solution. Our team will review your request and respond with a considered proposal.
+                    Our online request form is temporarily unavailable. Until further notice, please contact us directly by email.
                 </p>
 
             </div>
 
-
-            <form
-                class="project-form"
-                id="projectForm"
-            >
-
-
-                <!-- NAME -->
-
-                <div class="form-group">
-
-                    <label
-                        class="form-label"
-                        data-i18n="nameLabel"
-                    >
-                        YOUR NAME
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-input"
-                        name="name"
-                        required
-                        data-placeholder="namePlaceholder"
-                        placeholder="Your name"
-                    >
-
+            <div class="contact-email-panel">
+                <div class="contact-email-icon" aria-hidden="true">✉</div>
+                <div class="contact-email-copy">
+                    <span class="contact-email-label" data-i18n="contactEmailLabel">EMAIL US DIRECTLY</span>
+                    <a class="contact-email-address" href="mailto:neobite90@gmail.com">neobite90@gmail.com</a>
                 </div>
+                <a class="btn btn-primary contact-email-button" href="mailto:neobite90@gmail.com" data-i18n="contactEmailButton">Send an Email ↗</a>
+            </div>
 
-
-                <!-- EMAIL -->
-
-                <div class="form-group">
-
-                    <label
-                        class="form-label"
-                        data-i18n="emailLabel"
-                    >
-                        EMAIL
-                    </label>
-
-                    <input
-                        type="email"
-                        class="form-input"
-                        name="email"
-                        required
-                        data-placeholder="emailPlaceholder"
-                        placeholder="you@example.com"
-                    >
-
-                </div>
-
-
-                <!-- PROJECT TYPE -->
-
-                <div class="form-group">
-
-                    <label
-                        class="form-label"
-                        data-i18n="typeLabel"
-                    >
-                        PROJECT TYPE
-                    </label>
-
-                    <select
-                        class="form-select"
-                        name="type"
-                        required
-                        id="projectType"
-                    >
-
-                        <option
-                            value=""
-                            data-i18n="typeChoose"
-                        >
-                            Choose project type
-                        </option>
-
-                        <option
-                            value="website"
-                            data-i18n="typeWebsite"
-                        >
-                            Website
-                        </option>
-
-                        <option
-                            value="software"
-                            data-i18n="typeSoftware"
-                        >
-                            Software
-                        </option>
-
-                        <option
-                            value="ai"
-                            data-i18n="typeAI"
-                        >
-                            AI / Chatbot
-                        </option>
-
-                        <option
-                            value="mobile"
-                            data-i18n="typeMobile"
-                        >
-                            Mobile App
-                        </option>
-
-                        <option
-                            value="other"
-                            data-i18n="typeOther"
-                        >
-                            Other
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- BUDGET -->
-
-                <div class="form-group">
-
-                    <label
-                        class="form-label"
-                        data-i18n="budgetLabel"
-                    >
-                        ESTIMATED BUDGET
-                    </label>
-
-                    <select
-                        class="form-select"
-                        name="budget"
-                        required
-                    >
-
-                        <option
-                            value=""
-                            data-i18n="budgetChoose"
-                        >
-                            Choose budget
-                        </option>
-
-                        <option
-                            value="low"
-                            data-i18n="budget1"
-                        >
-                            Flexible / Not sure
-                        </option>
-
-                        <option
-                            value="medium"
-                            data-i18n="budget2"
-                        >
-                            Medium
-                        </option>
-
-                        <option
-                            value="high"
-                            data-i18n="budget3"
-                        >
-                            High
-                        </option>
-
-                        <option
-                            value="custom"
-                            data-i18n="budget4"
-                        >
-                            Let's discuss
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <!-- DESCRIPTION -->
-
-                <div class="form-group full">
-
-                    <label
-                        class="form-label"
-                        data-i18n="descriptionLabel"
-                    >
-                        PROJECT DESCRIPTION
-                    </label>
-
-                    <textarea
-                        class="form-textarea"
-                        name="description"
-                        required
-                        data-placeholder="descriptionPlaceholder"
-                        placeholder="Describe your project scope, objectives and requirements..."
-                    ></textarea>
-
-                </div>
-
-
-                <!-- SUBMIT -->
-
-                <div class="form-bottom">
-
-                    <div
-                        class="form-note"
-                        data-i18n="formNote"
-                    >
-                        We'll review your request and
-                        get back to you as soon as possible.
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="btn btn-primary submit-btn"
-                        data-i18n="sendRequest"
-                    >
-                        Send Request →
-                    </button>
-
-                </div>
-
-
-            </form>
-
-
-            <div
-                class="form-success"
-                id="formSuccess"
-                data-i18n="formSuccess"
-            >
-                ✓ Your request has been prepared successfully.
-                Thank you for contacting NeoBite.
+            <div class="contact-notice-foot" data-i18n="contactEmailFoot">
+                Thank you for your understanding. We look forward to hearing from you.
             </div>
 
         </div>
@@ -6709,13 +6728,22 @@ const translations = {
             "BUILD MODE",
 
         requestNumber:
-            "06 / START A PROJECT",
+            "06 / CONTACT",
 
         requestTitle:
-            "Tell us about the product you envision.",
+            "Let’s build something meaningful together.",
 
         requestDescription:
-            "Share the scope, objectives and requirements of your website, software or AI solution. Our team will review your request and respond with a considered proposal.",
+            "Our online request form is temporarily unavailable. Until further notice, please contact us directly by email.",
+
+        contactEmailLabel:
+            "EMAIL US DIRECTLY",
+
+        contactEmailButton:
+            "Send an Email ↗",
+
+        contactEmailFoot:
+            "Thank you for your understanding. We look forward to hearing from you.",
 
         nameLabel:
             "YOUR NAME",
@@ -7025,13 +7053,22 @@ const translations = {
             "حالت ساخت",
 
         requestNumber:
-            "۰۶ / شروع پروژه",
+            "۰۶ / ارتباط با ما",
 
         requestTitle:
-            "محصول مدنظر خود را با ما در میان بگذارید.",
+            "بیایید با هم چیزی ارزشمند بسازیم.",
 
         requestDescription:
-            "دامنه، اهداف و نیازمندی‌های وب‌سایت، نرم‌افزار یا راهکار هوش مصنوعی خود را شرح دهید. تیم ما درخواست شما را بررسی کرده و با یک پیشنهاد دقیق پاسخ خواهد داد.",
+            "فرم ثبت درخواست ما موقتاً غیرفعال است. تا اطلاع ثانوی، لطفاً درخواست‌ها و پیام‌های خود را مستقیماً از طریق ایمیل برای ما ارسال کنید.",
+
+        contactEmailLabel:
+            "ارتباط مستقیم از طریق ایمیل",
+
+        contactEmailButton:
+            "ارسال ایمیل ←",
+
+        contactEmailFoot:
+            "از همراهی و درک شما سپاسگزاریم. مشتاق دریافت پیام شما هستیم.",
 
         nameLabel:
             "نام شما",
@@ -7257,115 +7294,6 @@ function toggleLanguage() {
 ========================================================= */
 
 setLanguage(currentLanguage);
-
-
-/* =========================================================
-   CUSTOM CURSOR
-========================================================= */
-
-const cursor =
-    document.querySelector(".cursor");
-
-const ring =
-    document.querySelector(".cursor-ring");
-
-let mouseX = 0;
-let mouseY = 0;
-
-let ringX = 0;
-let ringY = 0;
-
-
-document.addEventListener(
-    "mousemove",
-    e => {
-
-        mouseX = e.clientX;
-
-        mouseY = e.clientY;
-
-        cursor.style.left =
-            mouseX + "px";
-
-        cursor.style.top =
-            mouseY + "px";
-
-    }
-);
-
-
-function animateCursor() {
-
-    ringX +=
-        (mouseX - ringX) * .14;
-
-    ringY +=
-        (mouseY - ringY) * .14;
-
-    ring.style.left =
-        ringX + "px";
-
-    ring.style.top =
-        ringY + "px";
-
-    requestAnimationFrame(
-        animateCursor
-    );
-}
-
-animateCursor();
-
-
-/* =========================================================
-   CURSOR HOVER
-========================================================= */
-
-document
-    .querySelectorAll(
-        "a, button, .project, .stack-item"
-    )
-    .forEach(el => {
-
-        el.addEventListener(
-            "mouseenter",
-            () => {
-
-                cursor.style.width =
-                    "15px";
-
-                cursor.style.height =
-                    "15px";
-
-                ring.style.width =
-                    "48px";
-
-                ring.style.height =
-                    "48px";
-
-            }
-        );
-
-
-        el.addEventListener(
-            "mouseleave",
-            () => {
-
-                cursor.style.width =
-                    "9px";
-
-                cursor.style.height =
-                    "9px";
-
-                ring.style.width =
-                    "32px";
-
-                ring.style.height =
-                    "32px";
-
-            }
-        );
-
-    });
 
 
 /* =========================================================
@@ -7677,84 +7605,9 @@ function toggleMobileMenu() {
 
 
 /* =========================================================
-   PROJECT FORM
+   CONTACT NOTICE
+   The request form is temporarily replaced with a direct email link.
 ========================================================= */
-
-const projectForm =
-    document.getElementById(
-        "projectForm"
-    );
-
-const formSuccess =
-    document.getElementById(
-        "formSuccess"
-    );
-
-
-projectForm.addEventListener(
-    "submit",
-    function(e) {
-
-        e.preventDefault();
-
-
-        const formData =
-            new FormData(
-                projectForm
-            );
-
-
-        const name =
-            formData.get("name");
-
-        const email =
-            formData.get("email");
-
-        const type =
-            formData.get("type");
-
-        const budget =
-            formData.get("budget");
-
-        const description =
-            formData.get(
-                "description"
-            );
-
-
-        /*
-         * فعلاً اطلاعات فرم در مرورگر
-         * آماده می‌شوند.
-         *
-         * برای ارسال واقعی باید این بخش
-         * به Backend / Email API / Database
-         * متصل شود.
-         */
-
-
-        console.log({
-            name,
-            email,
-            type,
-            budget,
-            description
-        });
-
-
-        formSuccess.style.display =
-            "block";
-
-
-        projectForm.reset();
-
-
-        formSuccess.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-        });
-
-    }
-);
 
 
 /* =========================================================
