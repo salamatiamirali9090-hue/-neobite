@@ -7964,14 +7964,22 @@ document
         if(mfCounter) updateMfCounter();
     }
 
-    function openMfPage(){
+    // UI-only renderer: safe to call from popstate without changing browser history.
+    function showMfPage(){
+        if(mfPage.classList.contains("open")) return;
         setMfLanguage();
         mfPage.classList.add("open");
         mfPage.setAttribute("aria-hidden","false");
         document.body.dataset.mfPreviousOverflow = document.body.style.overflow || "";
         document.body.style.overflow = "hidden";
         mfPage.scrollTop = 0;
-        history.pushState({mathfriend:true},"","#mathfriend-page");
+    }
+
+    function openMfPage(){
+        showMfPage();
+        if(location.hash !== "#mathfriend-page"){
+            history.pushState({mathfriend:true},"","#mathfriend-page");
+        }
     }
 
     function closeMfPage(useHistory=true){
@@ -7993,11 +8001,14 @@ document
 
     window.addEventListener("popstate",()=>{
         if(location.hash === "#mathfriend-page"){
-            if(!mfPage.classList.contains("open")) openMfPage();
+            showMfPage();
         }else if(mfPage.classList.contains("open")){
             closeMfPage(false);
         }
     });
+
+    // Support opening a direct GitHub Pages URL containing this hash.
+    if(location.hash === "#mathfriend-page") showMfPage();
 
     document.addEventListener("keydown",e=>{
         if(!mfPage.classList.contains("open")) return;
@@ -8511,7 +8522,8 @@ document
     page.querySelectorAll('.nb-fa').forEach(el => el.style.display = isFa ? '' : 'none');
     page.querySelectorAll('.nb-en').forEach(el => el.style.display = isFa ? 'none' : '');
   }
-  function openProject(id){
+  // UI-only renderer: do not push a new history entry when restoring via Back/Forward.
+  function showProject(id){
     const page = projectPages[id];
     if(!page) return;
     Object.entries(projectPages).forEach(([key,el])=>{
@@ -8521,6 +8533,10 @@ document
     page.classList.add('open');page.setAttribute('aria-hidden','false');
     document.body.dataset.nbPreviousOverflow=document.body.style.overflow||'';
     document.body.style.overflow='hidden';page.scrollTop=0;
+  }
+  function openProject(id){
+    if(!projectPages[id]) return;
+    showProject(id);
     const hash='#'+id+'-project-page';
     if(location.hash!==hash) history.pushState({nbProject:id},'',hash);
   }
@@ -8540,12 +8556,17 @@ document
     if(target)target.scrollIntoView({behavior:'smooth',block:'start'});
   }));
   window.addEventListener('popstate',()=>{
-    if(activeProject && !location.hash.endsWith('-project-page'))closeProject(false);
-    else if(!activeProject){
-      const match=location.hash.match(/^#(ielts|placement|lunio|sharevo|futurelab|gamma|lumi)-project-page$/);
-      if(match)openProject(match[1]);
+    const match=location.hash.match(/^#(ielts|placement|lunio|sharevo|futurelab|gamma|lumi)-project-page$/);
+    if(match){
+      showProject(match[1]);
+    }else if(activeProject){
+      closeProject(false);
     }
   });
+
+  // Support direct links to project detail pages on GitHub Pages.
+  const initialProject=location.hash.match(/^#(ielts|placement|lunio|sharevo|futurelab|gamma|lumi)-project-page$/);
+  if(initialProject) showProject(initialProject[1]);
   const shImageButton=document.getElementById('shInfographicOpen');
   const shDialog=document.getElementById('shInfographicLightbox');
   const shDialogImage=document.getElementById('shInfographicLarge');
