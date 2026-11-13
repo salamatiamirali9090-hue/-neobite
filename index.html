@@ -4400,6 +4400,98 @@ body.rtl .pj-skills{direction:ltr;justify-content:flex-end}
 
 </style>
 
+
+<style>
+/* ===== TEAM: glass cards ===== */
+#team .team-grid{position:relative;gap:28px;isolation:isolate}
+#team .team-grid::before,#team .team-grid::after{content:"";position:absolute;z-index:-1;width:340px;height:340px;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.55}
+#team .team-grid::before{left:4%;top:-40px;background:radial-gradient(circle,#c25bff,transparent 70%)}
+#team .team-grid::after{right:4%;bottom:-40px;background:radial-gradient(circle,#4df0ff,transparent 70%);opacity:.38}
+
+#team .person,#team .person.reveal.visible{
+  position:relative;padding:36px 32px;border-radius:24px !important;border:1px solid rgba(255,255,255,.14) !important;
+  background:
+    radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.16),rgba(255,255,255,0) 55%),
+    linear-gradient(145deg,rgba(194,91,255,.20),rgba(40,12,70,.38) 60%,rgba(77,240,255,.07));
+  -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.35),
+    inset 0 -1px 0 rgba(255,255,255,.06),
+    0 20px 60px rgba(0,0,0,.45),
+    0 0 0 1px rgba(194,91,255,.18),
+    0 0 55px rgba(194,91,255,.30),
+    0 0 120px rgba(255,61,242,.14) !important;
+  transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s;
+}
+#team .person.reveal.visible{filter:none}
+
+/* animated gradient rim light */
+#team .person::after{
+  content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
+  background:conic-gradient(from var(--rim,0deg),rgba(255,61,242,.95),rgba(77,240,255,.85),rgba(194,91,255,.15) 40%,rgba(194,91,255,.95) 70%,rgba(255,61,242,.95));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
+  opacity:.85;animation:rimSpin 7s linear infinite;
+}
+@property --rim{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes rimSpin{to{--rim:360deg}}
+
+/* soft light blob behind content */
+#team .person::before{
+  width:260px;height:260px;right:-90px;top:-110px;background:radial-gradient(circle,rgba(255,61,242,.45),transparent 70%);
+  filter:blur(40px);opacity:.7;z-index:0;pointer-events:none;transition:opacity .4s;
+}
+#team .person>*{position:relative;z-index:1}
+
+#team .person:hover,#team .person.reveal.visible:hover{
+  transform:translateY(-10px) !important;border-color:rgba(255,255,255,.28) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.45),
+    0 30px 80px rgba(0,0,0,.55),
+    0 0 0 1px rgba(255,61,242,.35),
+    0 0 75px rgba(194,91,255,.55),
+    0 0 150px rgba(255,61,242,.28) !important;
+}
+#team .person:hover::before{opacity:1}
+
+#team .avatar{
+  width:120px;height:120px;border:2px solid rgba(255,255,255,.35);
+  box-shadow:0 0 0 6px rgba(255,255,255,.06),0 0 30px rgba(194,91,255,.6),0 14px 35px rgba(0,0,0,.5);
+}
+
+/* readable text */
+#team .person h3{color:#fff;font-size:26px;font-weight:700;letter-spacing:.2px;text-shadow:0 2px 14px rgba(0,0,0,.55)}
+#team .person-role{color:#f3c6ff;font-size:13px;letter-spacing:.4px;text-shadow:0 0 14px rgba(255,61,242,.55)}
+#team .person-description{color:#f1e8fa;font-size:15px;line-height:1.95;text-shadow:0 1px 8px rgba(0,0,0,.45)}
+#team .person .tag{
+  color:#fff !important;font-size:12px;padding:7px 12px;border:1px solid rgba(255,255,255,.22) !important;
+  background:rgba(255,255,255,.10);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.2) !important;transition:background .3s,border-color .3s,box-shadow .3s;
+}
+#team .person .tag:hover{background:rgba(194,91,255,.35);border-color:rgba(255,255,255,.45) !important;box-shadow:0 0 16px rgba(194,91,255,.6) !important}
+
+@media (max-width:900px){#team .person{padding:28px 22px}#team .person-description{font-size:14.5px}}
+@media (prefers-reduced-motion:reduce){#team .person::after{animation:none}}
+</style>
+
+<style id="neobite-java-card-mobile-header-fix">
+/* On phones, earlier mobile rules reset the card's top padding to ~20px, so the first
+   code line slid under the 44px "NeoBite.java" header bar. Restore room for the header. */
+#about .big-code,
+body.rtl #about .big-code{
+  padding-top:62px !important;
+  padding-bottom:22px !important;
+  padding-inline:14px !important;
+}
+#about .big-code > div{padding-left:30px !important}
+#about .big-code > div::before{width:20px !important;font-size:inherit !important;opacity:.8}
+#about .big-code::before{font-size:12px;padding-inline-start:80px}
+@media (max-width:390px){
+  #about .big-code,
+  body.rtl #about .big-code{padding-top:60px !important;padding-inline:10px !important}
+  #about .big-code > div{padding-left:26px !important}
+}
+</style>
 </head>
 
 
@@ -5223,7 +5315,7 @@ body.rtl .pj-skills{direction:ltr;justify-content:flex-end}
                 id="terminalBody"
             >
 
-                <div class="terminal-line">
+                <div class="terminal-line" data-keep>
 
                     <span class="terminal-prompt">PS C:\Users\NeoBite&gt;</span> <span class="ps-cmd">help</span></div>
 
@@ -7535,7 +7627,10 @@ terminalInput.addEventListener(
             document.getElementById("request").scrollIntoView({ behavior: "smooth" });
         }
         else if (command === "clear" || command === "پاک" || command === "cls") {
-            document.querySelectorAll(".terminal-line:not(.terminal-input-line), .terminal-output").forEach(el => el.remove());
+            document.querySelectorAll(".terminal-line:not(.terminal-input-line), .terminal-output").forEach(el => {
+                if (el.hasAttribute("data-keep") || el.id === "terminalHelp") return;
+                el.remove();
+            });
         }
         else {
             const c = psEsc(command);
