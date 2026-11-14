@@ -4400,98 +4400,138 @@ body.rtl .pj-skills{direction:ltr;justify-content:flex-end}
 
 </style>
 
-
-<style>
-/* ===== TEAM: glass cards ===== */
-#team .team-grid{position:relative;gap:28px;isolation:isolate}
-#team .team-grid::before,#team .team-grid::after{content:"";position:absolute;z-index:-1;width:340px;height:340px;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.55}
-#team .team-grid::before{left:4%;top:-40px;background:radial-gradient(circle,#c25bff,transparent 70%)}
-#team .team-grid::after{right:4%;bottom:-40px;background:radial-gradient(circle,#4df0ff,transparent 70%);opacity:.38}
-
-#team .person,#team .person.reveal.visible{
-  position:relative;padding:36px 32px;border-radius:24px !important;border:1px solid rgba(255,255,255,.14) !important;
-  background:
-    radial-gradient(120% 90% at 0% 0%,rgba(255,255,255,.16),rgba(255,255,255,0) 55%),
-    linear-gradient(145deg,rgba(194,91,255,.20),rgba(40,12,70,.38) 60%,rgba(77,240,255,.07));
-  -webkit-backdrop-filter:blur(22px) saturate(170%);backdrop-filter:blur(22px) saturate(170%);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.35),
-    inset 0 -1px 0 rgba(255,255,255,.06),
-    0 20px 60px rgba(0,0,0,.45),
-    0 0 0 1px rgba(194,91,255,.18),
-    0 0 55px rgba(194,91,255,.30),
-    0 0 120px rgba(255,61,242,.14) !important;
-  transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s,border-color .45s;
-}
-#team .person.reveal.visible{filter:none}
-
-/* animated gradient rim light */
-#team .person::after{
-  content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;
-  background:conic-gradient(from var(--rim,0deg),rgba(255,61,242,.95),rgba(77,240,255,.85),rgba(194,91,255,.15) 40%,rgba(194,91,255,.95) 70%,rgba(255,61,242,.95));
-  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
-  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);
-  opacity:.85;animation:rimSpin 7s linear infinite;
-}
-@property --rim{syntax:"<angle>";inherits:false;initial-value:0deg}
-@keyframes rimSpin{to{--rim:360deg}}
-
-/* soft light blob behind content */
-#team .person::before{
-  width:260px;height:260px;right:-90px;top:-110px;background:radial-gradient(circle,rgba(255,61,242,.45),transparent 70%);
-  filter:blur(40px);opacity:.7;z-index:0;pointer-events:none;transition:opacity .4s;
-}
-#team .person>*{position:relative;z-index:1}
-
-#team .person:hover,#team .person.reveal.visible:hover{
-  transform:translateY(-10px) !important;border-color:rgba(255,255,255,.28) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.45),
-    0 30px 80px rgba(0,0,0,.55),
-    0 0 0 1px rgba(255,61,242,.35),
-    0 0 75px rgba(194,91,255,.55),
-    0 0 150px rgba(255,61,242,.28) !important;
-}
-#team .person:hover::before{opacity:1}
-
-#team .avatar{
-  width:120px;height:120px;border:2px solid rgba(255,255,255,.35);
-  box-shadow:0 0 0 6px rgba(255,255,255,.06),0 0 30px rgba(194,91,255,.6),0 14px 35px rgba(0,0,0,.5);
+<style id="neobite-team-glass-cards">
+/* ===== Team member cards — calm frosted glass (scoped to #team .person only) ===== */
+#team .person {
+    --nb: 194, 91, 255;            /* card accent (violet, from site theme) */
+    --nb-soft: 226, 179, 255;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 40px 34px 34px;
+    border: 1px solid rgba(var(--nb), .20) !important;
+    border-radius: 22px !important;
+    background:
+        radial-gradient(90% 60% at 0% 0%, rgba(var(--nb), .16), transparent 60%),
+        linear-gradient(160deg, rgba(255,255,255,.075), rgba(255,255,255,.02) 50%, rgba(10,4,18,.35)) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(140%);
+    backdrop-filter: blur(24px) saturate(140%);
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.16),
+        inset 0 -1px 0 rgba(0,0,0,.25),
+        0 18px 44px rgba(0,0,0,.42),
+        0 0 28px rgba(var(--nb), .07) !important;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), border-color .4s, box-shadow .4s;
 }
 
-/* readable text */
-#team .person h3{color:#fff;font-size:26px;font-weight:700;letter-spacing:.2px;text-shadow:0 2px 14px rgba(0,0,0,.55)}
-#team .person-role{color:#f3c6ff;font-size:13px;letter-spacing:.4px;text-shadow:0 0 14px rgba(255,61,242,.55)}
-#team .person-description{color:#f1e8fa;font-size:15px;line-height:1.95;text-shadow:0 1px 8px rgba(0,0,0,.45)}
-#team .person .tag{
-  color:#fff !important;font-size:12px;padding:7px 12px;border:1px solid rgba(255,255,255,.22) !important;
-  background:rgba(255,255,255,.10);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.2) !important;transition:background .3s,border-color .3s,box-shadow .3s;
+/* second card: muted pink accent so the pair doesn't look cloned */
+#team .person:nth-child(2) {
+    --nb: 255, 92, 214;
+    --nb-soft: 255, 190, 238;
+    background:
+        radial-gradient(90% 60% at 100% 0%, rgba(var(--nb), .14), transparent 60%),
+        linear-gradient(200deg, rgba(255,255,255,.075), rgba(255,255,255,.02) 50%, rgba(10,4,18,.35)) !important;
 }
-#team .person .tag:hover{background:rgba(194,91,255,.35);border-color:rgba(255,255,255,.45) !important;box-shadow:0 0 16px rgba(194,91,255,.6) !important}
 
-@media (max-width:900px){#team .person{padding:28px 22px}#team .person-description{font-size:14.5px}}
-@media (prefers-reduced-motion:reduce){#team .person::after{animation:none}}
+/* thin top highlight line (same trick as the stack cards) */
+#team .person::before {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    top: 0; left: 14%; right: 14%;
+    width: auto; height: 1px;
+    border-radius: 0;
+    background: linear-gradient(90deg, transparent, rgba(var(--nb-soft), .75), transparent);
+    filter: none;
+    opacity: .8;
+    pointer-events: none;
+    animation: none;
+}
+
+/* index tag 01 / 02 — terminal-style detail */
+#team .person::after {
+    content: "01";
+    position: absolute;
+    z-index: 1;
+    top: 16px; right: 22px;
+    font-family: var(--silk, monospace);
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: rgba(var(--nb-soft), .45);
+    pointer-events: none;
+    -webkit-mask: none; mask: none;
+    background: none; padding: 0; inset: auto;
+    top: 16px; right: 22px; left: auto; bottom: auto;
+    animation: none; filter: none;
+}
+#team .person:nth-child(2)::after { content: "02"; }
+body.rtl #team .person::after { right: auto; left: 22px; }
+
+#team .person > * { position: relative; z-index: 2; }
+
+#team .person:hover {
+    transform: translateY(-6px);
+    border-color: rgba(var(--nb), .38) !important;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.22),
+        inset 0 -1px 0 rgba(0,0,0,.25),
+        0 26px 56px rgba(0,0,0,.5),
+        0 0 36px rgba(var(--nb), .13) !important;
+}
+
+/* text */
+#team .person h3 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    color: #fbf4ff;
+    background: none;
+    -webkit-text-fill-color: #fbf4ff;
+    text-shadow: 0 1px 10px rgba(0,0,0,.4);
+    filter: none;
+}
+#team .person .person-role {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: rgb(var(--nb-soft));
+    background: rgba(var(--nb), .10);
+    border: 1px solid rgba(var(--nb), .26);
+    box-shadow: none;
+    text-shadow: none;
+}
+#team .person .person-description {
+    margin-top: 20px;
+    font-size: 14px;
+    line-height: 1.95;
+    color: #ddd1ea;
+    text-shadow: 0 1px 6px rgba(0,0,0,.35);
+}
+#team .person .person-skills { margin-top: 24px; gap: 8px; }
+#team .person .person-skills .tag {
+    padding: 7px 12px;
+    font-size: 11px;
+    color: #eadff5;
+    border-radius: 8px !important;
+    border: 1px solid rgba(255,255,255,.13) !important;
+    background: rgba(255,255,255,.05) !important;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+    transition: border-color .25s, background .25s, color .25s;
+}
+#team .person .person-skills .tag:hover {
+    border-color: rgba(var(--nb), .5) !important;
+    background: rgba(var(--nb), .12) !important;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    #team .person { padding: 32px 22px 26px; border-radius: 18px !important; }
+    #team .person h3 { font-size: 23px; }
+}
 </style>
 
-<style id="neobite-java-card-mobile-header-fix">
-/* On phones, earlier mobile rules reset the card's top padding to ~20px, so the first
-   code line slid under the 44px "NeoBite.java" header bar. Restore room for the header. */
-#about .big-code,
-body.rtl #about .big-code{
-  padding-top:62px !important;
-  padding-bottom:22px !important;
-  padding-inline:14px !important;
-}
-#about .big-code > div{padding-left:30px !important}
-#about .big-code > div::before{width:20px !important;font-size:inherit !important;opacity:.8}
-#about .big-code::before{font-size:12px;padding-inline-start:80px}
-@media (max-width:390px){
-  #about .big-code,
-  body.rtl #about .big-code{padding-top:60px !important;padding-inline:10px !important}
-  #about .big-code > div{padding-left:26px !important}
-}
-</style>
 </head>
 
 
@@ -5315,7 +5355,7 @@ body.rtl #about .big-code{
                 id="terminalBody"
             >
 
-                <div class="terminal-line" data-keep>
+                <div class="terminal-line">
 
                     <span class="terminal-prompt">PS C:\Users\NeoBite&gt;</span> <span class="ps-cmd">help</span></div>
 
@@ -7627,10 +7667,7 @@ terminalInput.addEventListener(
             document.getElementById("request").scrollIntoView({ behavior: "smooth" });
         }
         else if (command === "clear" || command === "پاک" || command === "cls") {
-            document.querySelectorAll(".terminal-line:not(.terminal-input-line), .terminal-output").forEach(el => {
-                if (el.hasAttribute("data-keep") || el.id === "terminalHelp") return;
-                el.remove();
-            });
+            document.querySelectorAll(".terminal-line:not(.terminal-input-line), .terminal-output").forEach(el => el.remove());
         }
         else {
             const c = psEsc(command);
@@ -7720,58 +7757,44 @@ const navLinks =
     );
 
 
-window.addEventListener(
-    "scroll",
-    () => {
+/* Performance: schedule navigation state updates at most once per frame. */
+let navScrollRaf = 0;
+function updateActiveNav() {
+    navScrollRaf = 0;
+    const scrollPosition = window.scrollY + 150;
+    let current = "";
 
-        let current = "";
-
-
-        sections.forEach(
-            section => {
-
-                const sectionTop =
-                    section.offsetTop - 150;
-
-
-                if (
-                    window.scrollY >=
-                    sectionTop
-                ) {
-
-                    current =
-                        section.getAttribute(
-                            "id"
-                        );
-
-                }
-
-            }
-        );
-
-
-        navLinks.forEach(
-            link => {
-
-                link.style.color = "";
-
-
-                if (
-                    link.getAttribute(
-                        "href"
-                    ) === "#" + current
-                ) {
-
-                    link.style.color =
-                        "var(--green)";
-
-                }
-
-            }
-        );
-
+    for (const section of sections) {
+        if (section.offsetTop <= scrollPosition) {
+            current = section.id;
+        } else {
+            break;
+        }
     }
-);
+
+    for (const link of navLinks) {
+        const active = link.getAttribute("href") === "#" + current;
+        if (active) {
+            link.style.color = "var(--green)";
+        } else {
+            link.style.removeProperty("color");
+        }
+    }
+}
+
+window.addEventListener("scroll", () => {
+    if (!navScrollRaf) {
+        navScrollRaf = requestAnimationFrame(updateActiveNav);
+    }
+}, { passive: true });
+
+window.addEventListener("resize", () => {
+    if (!navScrollRaf) {
+        navScrollRaf = requestAnimationFrame(updateActiveNav);
+    }
+}, { passive: true });
+
+updateActiveNav();
 
 
 /* =========================================================
@@ -8112,7 +8135,7 @@ document
     let W = 0, H = 0, stars = [];
     function resize() {
         W = cv.width = innerWidth; H = cv.height = innerHeight;
-        const n = Math.round(W * H / 9000);
+        const n = Math.min(150, Math.round(W * H / 18000));
         stars = Array.from({ length: n }, () => ({
             x: Math.floor(Math.random() * W / 4) * 4, y: Math.floor(Math.random() * H / 4) * 4,
             s: Math.random() < .15 ? 6 : 3, c: cols[(Math.random() * cols.length) | 0],
@@ -8120,15 +8143,29 @@ document
         }));
     }
     resize(); addEventListener("resize", resize);
+    let lastStarFrame = 0, starRaf = 0;
     function draw(t) {
-        ctx.clearRect(0, 0, W, H);
-        for (const s of stars) {
-            const a = .2 + .8 * (Math.sin(t / 1000 * s.v + s.p) > 0 ? 1 : .15);
-            ctx.globalAlpha = a * .8; ctx.fillStyle = s.c; ctx.fillRect(s.x, s.y, s.s, s.s);
+        starRaf = 0;
+        if (document.hidden) return;
+        /* Cap decorative background animation to roughly 30 FPS. */
+        if (t - lastStarFrame >= 33) {
+            lastStarFrame = t;
+            ctx.clearRect(0, 0, W, H);
+            for (const s of stars) {
+                const a = .2 + .8 * (Math.sin(t / 1000 * s.v + s.p) > 0 ? 1 : .15);
+                ctx.globalAlpha = a * .8;
+                ctx.fillStyle = s.c;
+                ctx.fillRect(s.x, s.y, s.s, s.s);
+            }
         }
-        if (!reduce) requestAnimationFrame(draw);
+        if (!reduce && !document.hidden) starRaf = requestAnimationFrame(draw);
     }
-    requestAnimationFrame(draw);
+    if (!reduce) starRaf = requestAnimationFrame(draw);
+    document.addEventListener("visibilitychange", () => {
+        if (!document.hidden && !reduce && !starRaf) {
+            starRaf = requestAnimationFrame(draw);
+        }
+    }, { passive: true });
 
     /* ---------- logo: split letters + scramble decode ---------- */
     const logoSpan = document.querySelector(".logo span");
@@ -8615,6 +8652,36 @@ document
   });
 })();
 </script>
+
+
+<style id="neobite-performance-optimizations">
+/* Keep the existing appearance while avoiding expensive paint work. */
+.reveal,
+.reveal.visible {
+    filter: none !important;
+    transition-property: opacity, transform !important;
+}
+#stack .stack-item {
+    -webkit-backdrop-filter: blur(9px) saturate(125%) !important;
+    backdrop-filter: blur(9px) saturate(125%) !important;
+}
+#stack .stack-item,
+#stack .stack-item:hover {
+    transition-property: transform, border-color, box-shadow !important;
+}
+@media (hover: none), (pointer: coarse) {
+    .project:hover,
+    .person:hover,
+    .stack-item:hover,
+    .showcase-card:hover .showcase-browser,
+    .showcase-card:hover .showcase-device {
+        transform: none;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto !important; }
+}
+</style>
 
 </body>
 </html>
