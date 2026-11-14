@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap">
 
     <title>NeoBite — Digital Development Team</title>
 
@@ -12,7 +15,6 @@
 
     <style>
 
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Vazirmatn:wght@400;500;600;700;800&display=swap');
 
         :root {
             --bg: #05070a;
@@ -4532,6 +4534,49 @@ body.rtl #team .person::after { right: auto; left: 22px; }
 }
 </style>
 
+<style id="nb-performance">
+/* ===== performance layer (no visual redesign) ===== */
+
+/* fixed full-screen decorative layers get their own GPU layer: no repaint while scrolling */
+.fx-overlay, #starCanvas, body::before { will-change: transform; transform: translateZ(0); }
+
+/* stop infinite animations for sections that are off-screen */
+.nb-paused,
+.nb-paused *,
+.nb-paused::before,
+.nb-paused::after,
+.nb-paused *::before,
+.nb-paused *::after { animation-play-state: paused !important; }
+
+/* phones / touch devices: same look, much lighter effects */
+@media (max-width: 900px), (hover: none) {
+    .reveal,
+    .reveal.visible { filter: none !important; }
+    .reveal { transition: opacity .7s ease, transform .7s steps(8) !important; }
+
+    nav {
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+        background: rgba(7,2,13,.9) !important;
+    }
+    #stack .stack-item,
+    .stack-item,
+    #team .person,
+    #team .person .person-skills .tag,
+    .pj-pill,
+    .pj-ico,
+    .pj-toast {
+        -webkit-backdrop-filter: blur(8px) !important;
+        backdrop-filter: blur(8px) !important;
+    }
+    .nb-project-topbar,
+    .mf-topbar {
+        -webkit-backdrop-filter: blur(8px) !important;
+        backdrop-filter: blur(8px) !important;
+    }
+    .pj-orb { filter: none !important; }
+}
+</style>
 </head>
 
 
@@ -4910,7 +4955,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
                         <span class="pj-pill"><i class="pj-dot"></i><span data-i18n="filterSoftware">SOFTWARE</span></span>
                         <span class="pj-num">01</span>
                     </div>
-                    <div class="pj-ico"><img src="logo.png" alt="MathFriend"></div>
+                    <div class="pj-ico"><img decoding="async" loading="lazy" src="logo.png" alt="MathFriend"></div>
                 </div>
                 <div class="pj-body">
                     <h3 class="pj-title pj-brand" dir="ltr">MathFriend</h3>
@@ -5100,7 +5145,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
             <span data-mf="back">بازگشت به NeoBite</span>
         </button>
         <div class="mf-brand-mini">
-            <img src="logo.png" alt="MathFriend">
+            <img decoding="async" loading="lazy" src="logo.png" alt="MathFriend">
             <span dir="ltr" class="mf-ltr">MathFriend</span>
         </div>
         <div class="mf-year">2026 · EDUCATION SOFTWARE</div>
@@ -5142,7 +5187,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
                     <div class="mf-float f2">∞</div>
                     <div class="mf-float f3">∫</div>
                     <div class="mf-logo-card">
-                        <img src="logo.png" alt="MathFriend Logo">
+                        <img decoding="async" loading="lazy" src="logo.png" alt="MathFriend Logo">
                     </div>
                 </div>
             </div>
@@ -5264,21 +5309,21 @@ body.rtl #team .person::after { right: auto; left: 22px; }
 
                 <div class="mf-download-grid">
                     <article class="mf-download soon">
-                        <div class="mf-dl-icon"><img class="mf-platform-logo" src="apk.png" alt="Android APK logo"></div>
+                        <div class="mf-dl-icon"><img decoding="async" loading="lazy" class="mf-platform-logo" src="apk.png" alt="Android APK logo"></div>
                         <h3>Android</h3>
                         <p data-mf="androidDesc">نسخه اندروید MathFriend هنوز منتشر نشده است و پس از آماده‌شدن، از همین بخش در دسترس قرار می‌گیرد.</p>
                         <span class="mf-dl-link" data-mf="comingSoon">به‌زودی</span>
                     </article>
 
                     <article class="mf-download">
-                        <div class="mf-dl-icon"><img class="mf-platform-logo" src="window.png" alt="Windows logo"></div>
+                        <div class="mf-dl-icon"><img decoding="async" loading="lazy" class="mf-platform-logo" src="window.png" alt="Windows logo"></div>
                         <h3>Windows</h3>
                         <p data-mf="windowsDesc">نسخه ویندوز MathFriend. با انتخاب دریافت، دانلود فایل از Google Drive آغاز می‌شود.</p>
                         <a class="mf-dl-link" href="https://drive.google.com/uc?export=download&id=1rMmuHOhkYRPWof8hR1F1KR9y3Wf5kz_W" target="_blank" rel="noopener" data-mf="downloadWindows">دانلود Windows ←</a>
                     </article>
 
                     <article class="mf-download soon">
-                        <div class="mf-dl-icon"><img class="mf-platform-logo" src="ios.png" alt="iOS logo"></div>
+                        <div class="mf-dl-icon"><img decoding="async" loading="lazy" class="mf-platform-logo" src="ios.png" alt="iOS logo"></div>
                         <h3>iOS</h3>
                         <p data-mf="iosDesc">نسخه iOS هنوز منتشر نشده است و این بخش فعلاً به‌صورت «به‌زودی» نمایش داده می‌شود.</p>
                         <span class="mf-dl-link" data-mf="comingSoon">به‌زودی</span>
@@ -5442,7 +5487,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
             <article class="person reveal">
 
                 <div class="avatar">
-                    <img src="amirali.webp" alt="Amirali Salamati">
+                    <img decoding="async" loading="lazy" src="amirali.webp" alt="Amirali Salamati">
                 </div>
 
                 <h3>
@@ -5507,7 +5552,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
             <article class="person reveal">
 
                 <div class="avatar">
-                    <img src="matin.webp" alt="Mohammad Matin Shokri">
+                    <img decoding="async" loading="lazy" src="matin.webp" alt="Mohammad Matin Shokri">
                 </div>
 
                 <h3>
@@ -5701,47 +5746,47 @@ body.rtl #team .person::after { right: auto; left: 22px; }
         <div class="stack-grid">
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/python.png" alt="Python">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/python.png" alt="Python">
                 <div class="stack-name">PYTHON</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/html.png" alt="HTML">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/html.png" alt="HTML">
                 <div class="stack-name">HTML</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo stack-logo-lg" src="logo/css.png" alt="CSS">
+                <img decoding="async" loading="lazy" class="stack-logo stack-logo-lg" src="logo/css.png" alt="CSS">
                 <div class="stack-name">CSS</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/java.png" alt="JavaScript">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/java.png" alt="JavaScript">
                 <div class="stack-name">JAVASCRIPT</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/ai.png" alt="AI">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/ai.png" alt="AI">
                 <div class="stack-name">AI</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/api.png" alt="API">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/api.png" alt="API">
                 <div class="stack-name">API</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/databace.png" alt="Database">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/databace.png" alt="Database">
                 <div class="stack-name">DATABASE</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/ui.png" alt="UI/UX">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/ui.png" alt="UI/UX">
                 <div class="stack-name">UI / UX</div>
             </div>
 
             <div class="stack-item reveal">
-                <img class="stack-logo" src="logo/git.png" alt="Git">
+                <img decoding="async" loading="lazy" class="stack-logo" src="logo/git.png" alt="Git">
                 <div class="stack-name">GIT</div>
             </div>
 
@@ -5902,7 +5947,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
         </div>
       </div>
       <figure class="nb-ielts-image-frame">
-        <img src="ilets/infographic.png" alt="معرفی تصویری نرم‌افزار IELTS Mock Test Simulator و امکانات آن" loading="eager">
+        <img decoding="async" src="ilets/infographic.png" alt="معرفی تصویری نرم‌افزار IELTS Mock Test Simulator و امکانات آن" loading="lazy">
         <figcaption class="nb-fa">نمای معرفی نرم‌افزار و قابلیت‌های اصلی شبیه‌ساز آزمون آیلتس</figcaption>
         <figcaption class="nb-en">IELTS Mock Test Simulator — product overview and key features</figcaption>
       </figure>
@@ -5980,7 +6025,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
         </div>
       </div>
       <figure class="nb-ielts-image-frame nb-placement-image-frame">
-        <img src="taeinsath/info.png" alt="English Language Placement Test infographic" width="1536" height="1024" loading="eager" decoding="async">
+        <img src="taeinsath/info.png" alt="English Language Placement Test infographic" width="1536" height="1024" loading="lazy" decoding="async">
         <figcaption class="nb-fa">معرفی نرم‌افزار هوشمند تعیین سطح زبان و قابلیت‌های اصلی آن</figcaption>
         <figcaption class="nb-en">English Language Placement Test — product overview and key features</figcaption>
       </figure>
@@ -6062,7 +6107,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
       </div>
       <figure class="ln-hero-art">
         <button class="ln-image-trigger" type="button" data-ln-open-image aria-label="نمایش اینفوگرافی Lunio در اندازه بزرگ">
-          <img src="lunio/info.png" alt="اینفوگرافی رسمی معرفی محصول Lunio، شامل محیط وایت‌برد، قابلیت‌ها، مخاطبان و مزایا" width="1536" height="1024" fetchpriority="high">
+          <img decoding="async" loading="lazy" src="lunio/info.png" alt="اینفوگرافی رسمی معرفی محصول Lunio، شامل محیط وایت‌برد، قابلیت‌ها، مخاطبان و مزایا" width="1536" height="1024" fetchpriority="high">
           <span class="ln-image-hint"><span class="nb-fa">برای بزرگ‌نمایی کلیک کنید</span><span class="nb-en">Click to enlarge</span></span>
         </button>
         <figcaption class="nb-fa">اینفوگرافی رسمی محصول Lunio · نسبت تصویر اصلی ۳:۲</figcaption>
@@ -6107,7 +6152,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
         <p class="nb-fa">نمای کامل اینفوگرافی رسمی؛ برای مشاهده جزئیات، تصویر را باز کنید.</p><p class="nb-en">The complete official infographic. Open the image to inspect its details.</p></div>
       <figure class="ln-infographic-frame">
         <button class="ln-image-trigger" type="button" data-ln-open-image aria-label="بزرگ‌نمایی اینفوگرافی Lunio">
-          <img src="lunio/info.png" alt="اینفوگرافی رسمی Lunio با نمایش محیط کاری و امکانات محصول" width="1536" height="1024" loading="lazy">
+          <img decoding="async" src="lunio/info.png" alt="اینفوگرافی رسمی Lunio با نمایش محیط کاری و امکانات محصول" width="1536" height="1024" loading="lazy">
           <span class="ln-image-hint"><span class="nb-fa">مشاهده در اندازه بزرگ</span><span class="nb-en">Open full size</span></span>
         </button>
         <figcaption class="nb-fa">Lunio — Think Freely. Create Visually. Work Smarter.</figcaption>
@@ -6163,7 +6208,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
   <footer class="nb-project-shell nb-project-footer">© 2026 NEOBITE · LUNIO</footer>
   <dialog class="ln-lightbox" aria-label="Lunio infographic enlarged view">
     <button class="ln-lightbox-close" type="button" data-ln-close aria-label="Close image preview">×</button>
-    <img src="lunio/info.png" alt="اینفوگرافی رسمی Lunio در اندازه کامل 1536 در 1024" width="1536" height="1024">
+    <img decoding="async" loading="lazy" src="lunio/info.png" alt="اینفوگرافی رسمی Lunio در اندازه کامل 1536 در 1024" width="1536" height="1024">
   </dialog>
 </div>
 
@@ -6194,7 +6239,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
       </div>
       <figure class="sh-infographic-frame">
         <button class="sh-infographic-trigger" id="shInfographicOpen" type="button" aria-label="نمایش اینفوگرافی Sharvo در اندازه بزرگ">
-          <img src="sharvo/info.png" alt="اینفوگرافی رسمی Sharvo؛ پلتفرم هوشمند انتقال و اشتراک‌گذاری فایل" width="1536" height="1024" loading="eager" decoding="async">
+          <img src="sharvo/info.png" alt="اینفوگرافی رسمی Sharvo؛ پلتفرم هوشمند انتقال و اشتراک‌گذاری فایل" width="1536" height="1024" loading="lazy" decoding="async">
           <span class="sh-image-zoom"><span aria-hidden="true">⌕</span><span class="nb-fa">مشاهده در اندازه بزرگ</span><span class="nb-en">View full size</span></span>
         </button>
         <figcaption class="nb-fa">اینفوگرافی رسمی محصول Sharvo</figcaption>
@@ -6298,7 +6343,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
 
 <dialog class="sh-lightbox" id="shInfographicLightbox" aria-label="Sharvo infographic preview">
   <button class="sh-lightbox-close" id="shInfographicClose" type="button" aria-label="Close image preview">×</button>
-  <img id="shInfographicLarge" alt="اینفوگرافی رسمی Sharvo در اندازه بزرگ" width="1536" height="1024">
+  <img decoding="async" loading="lazy" id="shInfographicLarge" alt="اینفوگرافی رسمی Sharvo در اندازه بزرگ" width="1536" height="1024">
 </dialog>
 <div class="nb-project-page" id="futurelabProjectPage" aria-hidden="true" dir="rtl">
   <header class="nb-project-topbar">
@@ -6325,7 +6370,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
       </div>
       <figure class="fl-hero-art">
         <button class="fl-image-button" type="button" data-fl-open-image aria-label="مشاهده اینفوگرافی Future Lab در اندازه بزرگ">
-          <img src="futurelab/info.png" alt="اینفوگرافی رسمی Future Lab — Know Yourself. Shape Your Future." width="1536" height="1024" loading="eager" decoding="async">
+          <img src="futurelab/info.png" alt="اینفوگرافی رسمی Future Lab — Know Yourself. Shape Your Future." width="1536" height="1024" loading="lazy" decoding="async">
           <span class="fl-image-hint"><span aria-hidden="true">⌕</span><span class="nb-fa">برای مشاهده در اندازه بزرگ کلیک کنید</span><span class="nb-en">Click to view full size</span></span>
         </button>
         <figcaption class="fl-image-caption"><span class="nb-fa">اینفوگرافی رسمی محصول Future Lab</span><span class="nb-en">Official Future Lab product infographic</span><span>1536 × 1024</span></figcaption>
@@ -6413,7 +6458,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
 
   <dialog class="fl-lightbox" aria-label="نمایش بزرگ اینفوگرافی Future Lab" data-fl-lightbox>
     <button class="fl-lightbox-close" type="button" data-fl-close aria-label="بستن">×</button>
-    <img src="futurelab/info.png" alt="اینفوگرافی رسمی Future Lab، نسخه کامل 1536×1024" width="1536" height="1024">
+    <img decoding="async" loading="lazy" src="futurelab/info.png" alt="اینفوگرافی رسمی Future Lab، نسخه کامل 1536×1024" width="1536" height="1024">
   </dialog>
 </div>
 
@@ -6498,7 +6543,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
   <footer class="nb-project-shell nb-project-footer">© 2026 NEOBITE · GMM — GAMMA MARKETING MINDSET</footer>
   <dialog class="gmm-lightbox" aria-label="نمایش بزرگ اینفوگرافی GMM" data-gmm-lightbox>
     <button class="gmm-lightbox-close" type="button" data-gmm-close aria-label="Close">×</button>
-    <img src="gmm/info.png" alt="اینفوگرافی رسمی GMM در اندازه کامل 1536×1024" width="1536" height="1024">
+    <img decoding="async" loading="lazy" src="gmm/info.png" alt="اینفوگرافی رسمی GMM در اندازه کامل 1536×1024" width="1536" height="1024">
   </dialog>
 </div>
 
@@ -6523,7 +6568,7 @@ body.rtl #team .person::after { right: auto; left: 22px; }
         </div>
       </div>
       <figure class="nb-ielts-image-frame nb-lumi-image-frame">
-        <img src="lumi/info.png" alt="اینفوگرافی معرفی ربات هوشمند لومی؛ Lumi AI Desktop Companion" width="1536" height="1024" loading="eager" decoding="async">
+        <img src="lumi/info.png" alt="اینفوگرافی معرفی ربات هوشمند لومی؛ Lumi AI Desktop Companion" width="1536" height="1024" loading="lazy" decoding="async">
         <figcaption class="nb-fa">لومی؛ کوچک شروع می‌کند، اما با تو رشد می‌کند.</figcaption>
         <figcaption class="nb-en">Lumi — It starts small, but grows with you.</figcaption>
       </figure>
@@ -7447,6 +7492,8 @@ const observer =
                             .classList
                             .add("visible");
 
+                        observer.unobserve(entry.target);
+
                     }
 
                 }
@@ -7757,44 +7804,48 @@ const navLinks =
     );
 
 
-/* Performance: schedule navigation state updates at most once per frame. */
-let navScrollRaf = 0;
-function updateActiveNav() {
-    navScrollRaf = 0;
-    const scrollPosition = window.scrollY + 150;
-    let current = "";
+(function () {
 
-    for (const section of sections) {
-        if (section.offsetTop <= scrollPosition) {
-            current = section.id;
-        } else {
-            break;
+    let tops = [], ticking = false, last = null;
+
+    function measure() {
+        tops = Array.from(sections, sec => [sec.id, sec.offsetTop - 150]);
+    }
+
+    function update() {
+        ticking = false;
+        const y = window.scrollY;
+        let current = "";
+        for (const [id, top] of tops) {
+            if (y >= top) current = id;
         }
+        if (current === last) return;
+        last = current;
+        navLinks.forEach(link => {
+            link.style.color =
+                link.getAttribute("href") === "#" + current
+                    ? "var(--green)"
+                    : "";
+        });
     }
 
-    for (const link of navLinks) {
-        const active = link.getAttribute("href") === "#" + current;
-        if (active) {
-            link.style.color = "var(--green)";
-        } else {
-            link.style.removeProperty("color");
-        }
-    }
-}
+    window.addEventListener("scroll", () => {
+        if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    }, { passive: true });
 
-window.addEventListener("scroll", () => {
-    if (!navScrollRaf) {
-        navScrollRaf = requestAnimationFrame(updateActiveNav);
-    }
-}, { passive: true });
+    let mt = 0;
+    const remeasure = () => {
+        clearTimeout(mt);
+        mt = setTimeout(() => { measure(); last = null; update(); }, 120);
+    };
+    window.addEventListener("resize", remeasure);
+    window.addEventListener("load", remeasure);
+    if (window.ResizeObserver) new ResizeObserver(remeasure).observe(document.body);
 
-window.addEventListener("resize", () => {
-    if (!navScrollRaf) {
-        navScrollRaf = requestAnimationFrame(updateActiveNav);
-    }
-}, { passive: true });
+    measure();
+    update();
 
-updateActiveNav();
+})();
 
 
 /* =========================================================
@@ -8135,37 +8186,30 @@ document
     let W = 0, H = 0, stars = [];
     function resize() {
         W = cv.width = innerWidth; H = cv.height = innerHeight;
-        const n = Math.min(150, Math.round(W * H / 18000));
+        const n = Math.round(W * H / 9000);
         stars = Array.from({ length: n }, () => ({
             x: Math.floor(Math.random() * W / 4) * 4, y: Math.floor(Math.random() * H / 4) * 4,
             s: Math.random() < .15 ? 6 : 3, c: cols[(Math.random() * cols.length) | 0],
             p: Math.random() * 6.28, v: .5 + Math.random() * 1.8
         }));
     }
-    resize(); addEventListener("resize", resize);
-    let lastStarFrame = 0, starRaf = 0;
+    let lastW = innerWidth;
+    resize();
+    addEventListener("resize", () => {
+        if (Math.abs(innerWidth - lastW) > 1) { lastW = innerWidth; resize(); }
+    });
+    let lastT = 0;
     function draw(t) {
-        starRaf = 0;
-        if (document.hidden) return;
-        /* Cap decorative background animation to roughly 30 FPS. */
-        if (t - lastStarFrame >= 33) {
-            lastStarFrame = t;
-            ctx.clearRect(0, 0, W, H);
-            for (const s of stars) {
-                const a = .2 + .8 * (Math.sin(t / 1000 * s.v + s.p) > 0 ? 1 : .15);
-                ctx.globalAlpha = a * .8;
-                ctx.fillStyle = s.c;
-                ctx.fillRect(s.x, s.y, s.s, s.s);
-            }
+        if (!reduce) requestAnimationFrame(draw);
+        if (document.hidden || t - lastT < 33) return;
+        lastT = t;
+        ctx.clearRect(0, 0, W, H);
+        for (const s of stars) {
+            const a = .2 + .8 * (Math.sin(t / 1000 * s.v + s.p) > 0 ? 1 : .15);
+            ctx.globalAlpha = a * .8; ctx.fillStyle = s.c; ctx.fillRect(s.x, s.y, s.s, s.s);
         }
-        if (!reduce && !document.hidden) starRaf = requestAnimationFrame(draw);
     }
-    if (!reduce) starRaf = requestAnimationFrame(draw);
-    document.addEventListener("visibilitychange", () => {
-        if (!document.hidden && !reduce && !starRaf) {
-            starRaf = requestAnimationFrame(draw);
-        }
-    }, { passive: true });
+    requestAnimationFrame(draw);
 
     /* ---------- logo: split letters + scramble decode ---------- */
     const logoSpan = document.querySelector(".logo span");
@@ -8250,12 +8294,20 @@ document
     }
 
     /* subtle parallax glow on cards following the mouse */
+    let glowEv = null, glowRaf = 0;
     document.addEventListener("pointermove", e => {
-        const card = e.target.closest && e.target.closest("[class*='card'], .project, .stat");
-        if (!card) return;
-        const r = card.getBoundingClientRect();
-        card.style.setProperty("--mx", (e.clientX - r.left) + "px");
-        card.style.setProperty("--my", (e.clientY - r.top) + "px");
+        if (e.pointerType === "touch") return;
+        glowEv = e;
+        if (glowRaf) return;
+        glowRaf = requestAnimationFrame(() => {
+            glowRaf = 0;
+            const ev = glowEv;
+            const card = ev.target.closest && ev.target.closest("[class*='card'], .project, .stat");
+            if (!card) return;
+            const r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", (ev.clientX - r.left) + "px");
+            card.style.setProperty("--my", (ev.clientY - r.top) + "px");
+        });
     }, { passive: true });
 
 })();
@@ -8439,12 +8491,28 @@ document
     track.addEventListener('dragstart', e => e.preventDefault());
 
     /* ---------- spotlight ---------- */
+    let spEv = null, spRaf = 0;
     track.addEventListener('pointermove', e => {
-        const c = e.target.closest('.pj'); if(!c) return;
-        const r = c.getBoundingClientRect();
-        c.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-        c.style.setProperty('--my', (e.clientY - r.top) + 'px');
-    });
+        if(e.pointerType === 'touch') return;
+        spEv = e;
+        if(spRaf) return;
+        spRaf = requestAnimationFrame(() => {
+            spRaf = 0;
+            const c = spEv.target.closest('.pj'); if(!c) return;
+            const r = c.getBoundingClientRect();
+            c.style.setProperty('--mx', (spEv.clientX - r.left) + 'px');
+            c.style.setProperty('--my', (spEv.clientY - r.top) + 'px');
+        });
+    }, {passive:true});
+
+    /* warm up the project page images right before it is opened */
+    function warm(e){
+        const c = e.target.closest && e.target.closest('.pj'); if(!c) return;
+        const pg = document.getElementById(c.dataset.project + 'ProjectPage'); if(!pg) return;
+        pg.querySelectorAll('img[loading="lazy"]').forEach(im => { im.loading = 'eager'; });
+    }
+    track.addEventListener('pointerover', warm, {passive:true});
+    track.addEventListener('touchstart', warm, {passive:true});
 
     /* ---------- entrance ---------- */
     const io = new IntersectionObserver(es => es.forEach(en => {
@@ -8653,35 +8721,16 @@ document
 })();
 </script>
 
-
-<style id="neobite-performance-optimizations">
-/* Keep the existing appearance while avoiding expensive paint work. */
-.reveal,
-.reveal.visible {
-    filter: none !important;
-    transition-property: opacity, transform !important;
-}
-#stack .stack-item {
-    -webkit-backdrop-filter: blur(9px) saturate(125%) !important;
-    backdrop-filter: blur(9px) saturate(125%) !important;
-}
-#stack .stack-item,
-#stack .stack-item:hover {
-    transition-property: transform, border-color, box-shadow !important;
-}
-@media (hover: none), (pointer: coarse) {
-    .project:hover,
-    .person:hover,
-    .stack-item:hover,
-    .showcase-card:hover .showcase-browser,
-    .showcase-card:hover .showcase-device {
-        transform: none;
-    }
-}
-@media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto !important; }
-}
-</style>
+<script>
+/* perf: pause infinite animations of sections that are not on screen */
+(function () {
+    if (!("IntersectionObserver" in window)) return;
+    const io = new IntersectionObserver(es => {
+        es.forEach(e => e.target.classList.toggle("nb-paused", !e.isIntersecting));
+    }, { rootMargin: "120px 0px" });
+    document.querySelectorAll("body > section, body > footer").forEach(el => io.observe(el));
+})();
+</script>
 
 </body>
 </html>
