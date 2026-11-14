@@ -4576,6 +4576,30 @@ body.rtl #team .person::after { right: auto; left: 22px; }
     }
     .pj-orb { filter: none !important; }
 }
+
+/* Java snippet (About): keep the code below the "NeoBite.java" title bar on phones */
+@media (max-width: 600px) {
+    #about .big-code,
+    body.rtl #about .big-code {
+        padding-top: 58px !important;
+        padding-bottom: 18px !important;
+    }
+    #about .big-code > div {
+        padding-left: 28px;
+    }
+    #about .big-code > div::before {
+        top: 0;
+        width: 20px;
+        font-size: inherit;
+        line-height: inherit;
+    }
+    #about .big-code::before {
+        height: 40px;
+        padding-left: 76px;
+        font-size: 11px;
+    }
+    #about .big-code::after { inset: 40px 0 0 0; }
+}
 </style>
 </head>
 
